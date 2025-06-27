@@ -1,22 +1,29 @@
 {
   "expo": {
-    "name": "NameGame",
-    "slug": "NameGame",
+    "name": "Name Game",
+    "slug": "name-game",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "namegame",
+    "scheme": "name-game",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": {
+        "light": "./assets/icons/ios-light.png",
+        "dark": "./assets/icons/ios-dark.png",
+        "tinted": "./assets/icons/ios-tinted.png"
+      },
+      "bundleIdentifier": "com.alexandreacm.dev.NameGame"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.alexandreacm.dev.NameGame"
     },
     "web": {
       "bundler": "metro",
@@ -28,10 +35,14 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#223547",
+          "image": "./assets/icons/splash-icon-light.png",
+          "dark": {
+            "image": "./assets/icons/splash-icon-light.png",
+            "backgroundColor": "#000000"
+          },
+          "imageWidth": 380,
+          "resizeMode": "contain"
         }
       ]
     ],
