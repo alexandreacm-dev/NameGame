@@ -41,7 +41,7 @@
             "image": "./assets/icons/splash-icon-light.png",
             "backgroundColor": "#000000"
           },
-          "imageWidth": 360,
+          "imageWidth": 300,
           "resizeMode": "contain"
         }
       ]

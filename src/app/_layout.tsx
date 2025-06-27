@@ -1,20 +1,12 @@
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "../../global.css";
 
-function RootLayout() {
-  // const [loaded, error] = useFonts({
-  //   "SF": require("../../assets/fonts/SF-Pro-Display-Regular.otf"),
-  // });
+SplashScreen.preventAutoHideAsync();
 
-  // useEffect(() => {
-  //   if (loaded || error) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, [loaded, error]);
-
-  // if (!loaded && !error) {
-  //   return null;
-  // }
-
+function InitialLayout() {
   return (
     <Stack>
       <Stack.Screen
@@ -30,12 +22,33 @@ function RootLayout() {
           headerTitle: "Practice Mode",
         }}
       />
-      <Stack.Screen name="timed-mode" />
+      <Stack.Screen
+        name="timed-mode"
+        options={{
+          headerTitle: "Timed Mode",
+        }}
+      />
     </Stack>
   );
 }
 
-export default RootLayout;
-function useFonts(arg0: { "Inter-Black": any }): [any, any] {
-  throw new Error("Function not implemented.");
+function RootLayout() {
+  const [loaded, error] = useFonts({
+    SFDisplayRegular: require("../../assets/fonts/SF-Pro-Display-Regular.otf"),
+    SFDisplayBold: require("../../assets/fonts/SF-Pro-Display-Bold.otf"),
+  });
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
+
+  return <InitialLayout />;
 }
+
+export default RootLayout;

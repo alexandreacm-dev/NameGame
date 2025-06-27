@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const TimedMode: React.FC = () => {
+const TimedMode = () => {
   return (
     <View>
-      <Text>PracticeMode</Text>
+      <Text>TimedMode</Text>
     </View>
   );
 };
