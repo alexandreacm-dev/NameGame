@@ -4,19 +4,18 @@ import { IProfile } from "../models";
 import { api } from "../services/api.service";
 
 const PracticeMode: React.FC = () => {
-  const [teamMates, setTeamMates] = useState<IProfile[]>([]);
-  const [currentOptions, setCurrentOptions] = useState<IProfile[]>([]);
+  const [teamMatesList, setTeamMatesList] = useState<IProfile[]>([]);
+  const [currentList, setCurrentList] = useState<IProfile[]>([]);
   const [correctProfile, setCorrectProfile] = useState<IProfile | null>(null);
   const [score, setScore] = useState(0);
 
-  // Fetch all profiles once
   useEffect(() => {
     async function getData() {
       try {
         const response = await api.get("profiles");
         const data = (await response.data) as IProfile[];
 
-        setTeamMates(data);
+        setTeamMatesList(data);
         generateNewRound(data);
       } catch (error) {
         console.log(error);
@@ -26,14 +25,15 @@ const PracticeMode: React.FC = () => {
     getData();
   }, []);
 
-  const generateNewRound = (sourceData: IProfile[] = teamMates) => {
-    if (sourceData.length < 6) return;
+  const generateNewRound = (dataList: IProfile[] = teamMatesList) => {
+    if (dataList.length < 6) return;
 
-    const shuffled = [...sourceData].sort(() => 0.5 - Math.random());
-    const options = shuffled.slice(0, 6);
-    const correct = options[Math.floor(Math.random() * options.length)];
+    const allTeamMates = [...dataList].sort(() => 0.5 - Math.random());
+    const firstSixMembers = allTeamMates.slice(0, 6);
+    const randomNumber = Math.floor(Math.random() * firstSixMembers.length);
+    const correct = firstSixMembers[randomNumber];
 
-    setCurrentOptions(options);
+    setCurrentList(firstSixMembers);
     setCorrectProfile(correct);
   };
 
@@ -49,27 +49,43 @@ const PracticeMode: React.FC = () => {
           text: "OK",
           onPress: () => {
             setScore(0);
-            generateNewRound();
           },
         },
       ]);
     }
   };
 
-  const renderItem = ({ item }: { item: IProfile }) => (
-    <Pressable onPress={() => handleGuess(item)} className="mx-2 my-2">
-      <Image
-        source={{ uri: item.headshot.url }}
-        className="w-[164px] h-[164px] rounded-xl"
-      />
-    </Pressable>
-  );
+  const renderItem = ({ item }: { item: IProfile }) => {
+    const isCorrect = item.id === correctProfile?.id;
+    const overlayStyle = isCorrect ? "bg-green-500/60" : "bg-red-500/60";
+
+    return (
+      <Pressable onPress={() => handleGuess(item)} className="mx-2 my-2">
+        <View className="relative">
+          <Image
+            source={{ uri: item.headshot.url }}
+            className="w-[164px] h-[164px] rounded-xl"
+          />
+          {isCorrect && (
+            <View
+              className={`absolute inset-0 items-center justify-center rounded-xl ${overlayStyle}`}
+            >
+              <Image
+                source={require("../assets/images/correct.png")}
+                className="w-[60px] h-[60px]"
+              />
+            </View>
+          )}
+        </View>
+      </Pressable>
+    );
+  };
 
   return (
     <View className="flex-1 items-center justify-center p-4 bg-white">
-      <Text className="text-xl font-bold mb-4">
+      {/* <Text className="text-xl font-bold mb-4">
         Score: {score} / {currentOptions.length}
-      </Text>
+      </Text> */}
       {correctProfile && (
         <View className="w-[100%] p-2">
           <Text className="text-3xl font-[SFDisplayBold] font-bold mb-4 text-center">
@@ -78,7 +94,7 @@ const PracticeMode: React.FC = () => {
         </View>
       )}
       <FlatList
-        data={currentOptions}
+        data={currentList}
         renderItem={renderItem}
         numColumns={2}
         keyExtractor={(item) => item.id.toString()}
