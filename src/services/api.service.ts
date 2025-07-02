@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const mockURL = 'http://localhost:3000/';
+
 export const api = axios.create({
-    baseURL: 'https://namegame.willowtreeapps.com/api/v1.0/'
+    baseURL: mockURL
 })
