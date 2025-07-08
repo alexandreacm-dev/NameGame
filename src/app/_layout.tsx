@@ -1,8 +1,8 @@
-import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "../../global.css";
+import useFonts from "../hooks/useFonts";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,10 +33,7 @@ function InitialLayout() {
 }
 
 function RootLayout() {
-  const [loaded, error] = useFonts({
-    SFDisplayRegular: require("../../assets/fonts/SF-Pro-Display-Regular.otf"),
-    SFDisplayBold: require("../../assets/fonts/SF-Pro-Display-Bold.otf"),
-  });
+  const [loaded, error] = useFonts();
 
   useEffect(() => {
     if (loaded || error) {

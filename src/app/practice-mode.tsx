@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { IProfile } from "../models";
-import { api } from "../services/api.service";
+import { apiClient } from "../services/api.client";
 
 type ItemProp = {
   item: IProfile;
@@ -9,6 +17,7 @@ type ItemProp = {
 
 const PracticeMode: React.FC = () => {
   const [allProfiles, setAllProfiles] = useState<IProfile[]>([]);
+  const [loading, setLoading] = useState(false);
   const [teamMatesList, setTeamMates] = useState<IProfile[]>([]);
   const [correctProfile, setCorrectProfile] = useState<IProfile | null>(null);
   const [selectedProfile, setSelectedProfile] = useState<IProfile | null>(null);
@@ -16,12 +25,17 @@ const PracticeMode: React.FC = () => {
 
   useEffect(() => {
     async function getData() {
+      setLoading(true);
+
       try {
-        const response = await api.get("profiles");
+        const response = await apiClient.get("profiles");
         const data = response.data as IProfile[];
+        setLoading(false);
+
         setAllProfiles(data);
         startNewRound(data);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     }
@@ -44,7 +58,10 @@ const PracticeMode: React.FC = () => {
 
     if (selected.id === correctProfile.id) {
       setScore((prev) => prev + 1);
-      startNewRound();
+
+      setTimeout(() => {
+        startNewRound();
+      }, 2000);
     } else {
       Alert.alert("Game Over!", `Your score: ${score}`, [
         {
@@ -97,19 +114,25 @@ const PracticeMode: React.FC = () => {
 
   return (
     <View className="flex-1 items-center justify-center p-4 bg-white">
-      {correctProfile && (
-        <Text className="text-3xl font-bold mb-4 text-center">
-          {correctProfile.firstName} {correctProfile.lastName}
-        </Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#808080" />
+      ) : (
+        <>
+          {correctProfile && (
+            <Text className="text-3xl font-bold mb-4 text-center">
+              {correctProfile.firstName} {correctProfile.lastName}
+            </Text>
+          )}
+          <FlatList
+            data={teamMatesList}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderItem}
+            numColumns={2}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={{ alignItems: "center" }}
+          />
+        </>
       )}
-      <FlatList
-        data={teamMatesList}
-        showsVerticalScrollIndicator={false}
-        renderItem={renderItem}
-        numColumns={2}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{ alignItems: "center" }}
-      />
     </View>
   );
 };

@@ -1,51 +1,106 @@
-# Welcome to your Expo app 👋
+<h1 align="center">
+  <img alt="" height="80" title="" src=".github/icLogo.png" />
+</h1>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=E51C44&labelColor=0A1033">
+</p>
 
-## Get started
+[![Watch the video](.github/icLogo.png)](https://github.com/user-attachments/assets/2464ffcd-866a-4dc9-9e74-d839444606ef)
 
-1. Install dependencies
+![cover](.github/cover.png?style=flat)
 
-   ```bash
-   npm install
-   ```
+## 💻 Project
 
-2. Start the app
+This is an example of NameGame project that you can learn more about your teammates names.
 
-   ```bash
-   npx expo start
-   ```
+# Team
 
-In the output, you'll find options to open the app in a
+- Here must contain the names of everyone in the team, at the moment that
+  project is created
+  - Senior React Native Engineer: Alexandre Marques
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# To Navigation
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- expo-router.
 
-## Get a fresh project
+## Features
 
-When you're ready, run:
+- [ ] List Teammates.
+- [ ] Check correct teammate name.
+- [ ] Check incorrect teammate name.
+- [ ] Guess teammates name.
+- [ ] Guess teammates names for timer.
 
-```bash
-npm run reset-project
+## ✨ Technologies
+
+- [ ] Expo.
+- [ ] Tailwind CSS | NativeWind.
+- [ ] Commitizen.
+- [ ] axios
+- [ ] @tanstack/react-query.
+
+## Running the project
+
+**Install dependencies**
+
+```
+npm / yarn
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Install IOS Pods**
 
-## Learn more
+```
+cd ios && pod install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Run Expo Environment
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+npx expo start -c / yarn start -c
+```
 
-## Join the community
+### Run RN CLI Environment
 
-Join our community of developers creating universal apps.
+**Run IOS**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# NameGame
+```
+yarn ios / npx run:ios
+```
+
+**Run Android**
+
+```
+yarn android / npx run:android
+```
+
+## Running the tests
+
+Use **yarn test** to execute the jest tests.
+
+```cl
+yarn test
+```
+
+<br />
+
+# Project Structure
+
+```bash
+  src
+   ├── App
+       ├── assets
+       │   └── images
+       ├── @types
+       ├── components
+       ├── hooks
+       ├── models
+       ├── services
+       ├── styles
+       │   └── dark
+           └── light
+```
+
+<div align="center">
+  <small>Built By alexandreacm.marques - 2025/Jul</small>
+</div>
