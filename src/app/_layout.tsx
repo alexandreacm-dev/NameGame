@@ -3,6 +3,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "../../global.css";
 import useFonts from "../hooks/useFonts";
+import CircularProgress from "./timed-mode/components/circular-progress";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,9 +24,10 @@ function InitialLayout() {
         }}
       />
       <Stack.Screen
-        name="timed-mode"
+        name="timed-mode/index"
         options={{
           headerTitle: "Timed Mode",
+          headerRight: () => <CircularProgress />,
         }}
       />
     </Stack>

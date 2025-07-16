@@ -20,7 +20,7 @@ export default function App() {
         <Text className="text-white font-semibold text-xl">Practice Mode</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => router.navigate("/practice-mode")}
+        onPress={() => router.navigate("/timed-mode")}
         className="w-[100%] p-[20px] items-center justify-center bg-[#15659D] rounded-xl"
       >
         <Text className="text-white font-semibold text-xl">Timed Mode</Text>
